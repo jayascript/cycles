@@ -1,1 +1,1 @@
-from cycles import Cycles 
+from .cycles import Cycles 
