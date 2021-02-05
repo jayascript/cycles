@@ -23,7 +23,7 @@ def display_menu():
     print("")
     print("  Type 'help' for a list of commands.")
     return input("> ")
-    
+
 def ask_for_dt(question):
     'Returns a datetime based on an input (defaults to datetime.today())'
     now = datetime.today()
@@ -46,7 +46,7 @@ def new(cycles):
             return False
         cycles.new_cycle(new_start_dt)
     return True
-    
+
 def edit(cycles):
     cycle_list = cycles.to_list(reverse=True)
 
@@ -55,7 +55,7 @@ def edit(cycles):
         return False
     print("|---------- Cycles ------------|")
     print("|  # | Start Date | Period End |")
-    for i in range(len(cycle_list)): 
+    for i in range(len(cycle_list)):
         cycle = cycle_list[i]
         start_dt = cycle.start_dt
         period_end_dt_str = "--"
@@ -87,9 +87,9 @@ def edit(cycles):
             delete_cycle(cycles,cycle)
             return True
         cycles.edit_cycle(cycle,start_dt=new_start_dt,period_end_dt=new_period_end_dt)
-    
+
     return True
-        
+
 def delete_cycle(cycles,cycle):
     confirm = input("Are you sure (Y/n) [n]? ")
     if confirm == "Y":
@@ -98,17 +98,17 @@ def delete_cycle(cycles,cycle):
         return
     else:
         return delete_cycle(cycles,cycle)
-    
-    
+
+
 def last_n_cycles(cycles,n=None):
-    
+
     cycle_list = cycles.to_list(reverse=True)
-    
+
     if not n:
         print("|---------------- Cycles ----------------|")
     else:
         print("|------------- Last %d Cycles ------------|"%n)
-       
+
     print("|                      | Flow   | Cycle  |")
     print("| Cycle Start Date     | Length | Length |")
     print("|----------------------------------------|")
@@ -128,10 +128,10 @@ def last_n_cycles(cycles,n=None):
         print("|            No cycles logged            |")
     print("|----------------------------------------|")
     return True
-    
+
 def show(cycles):
     return last_n_cycles(cycles)
-    
+
 def stats(cycles):
 
     if cycles.count > 0:
@@ -159,11 +159,11 @@ def stats(cycles):
     else:
         print("")
         print("  Type 'new' to add a cycle.")
-    return True    
+    return True
 
 def cli():
 
-    db_dir=os.path.expanduser('~/Dropbox/Documents/')
+    db_dir=os.path.expanduser('~/.cycles')
     db_path=os.path.join(db_dir,'cycles.db')
 
     cycles = Cycles(db_path)
@@ -174,7 +174,7 @@ def cli():
         while True:
             if show_cycles_after_command == True:
                 last_n_cycles(cycles,4)
-                stats(cycles) 
+                stats(cycles)
             choice = display_menu()
 
             if choice == 'list':
@@ -202,5 +202,5 @@ if __name__ == "__main__":
 
     cli()
 
-      
+
 
